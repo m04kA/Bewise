@@ -2,9 +2,10 @@ import os
 
 USER = os.getenv("POSTGRES_USER")
 PASSWORD = os.getenv("POSTGRES_PASSWORD")
-HOST = os.getenv("POSTGRES_HOST", "127.0.0.1")
+HOST = os.getenv("POSTGRES_HOST", "db_postgres")
 DB_NAME = os.getenv("POSTGRES_DB", "postgres")
 PORT = os.getenv("DATABASE_PORT", "5432")
+# print(USER, PASSWORD, HOST, DB_NAME, PORT)
 
 
 '''
