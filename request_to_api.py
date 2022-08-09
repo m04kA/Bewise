@@ -11,18 +11,18 @@ def handle_request(
         json: dict = None,
         data: str = None,
         **kwargs) -> dict:
-    """Запрос к серверу
+    """Request to server
     Args:
-        method (str): Метод
-        url (str): Путь
-        json (dict, optional): Данные для выполнения POST. Defaults to None.
-        data (str, optional): Данные для выполнения POST. Defaults to None. - используется при смене способа оплаты.
+        method (str): Method of request
+        url (str): Url of server
+        json (dict, optional): Data for complete method POST. Defaults to None.
+        data (str, optional): Data for complete method POST. Defaults to None.
     Kwargs:
-        Используются для добавления Params к ссылке
+        Using for adding Params to link
     Raises:
-        ConnectionError: Ошибка соединения
+        ConnectionError - If the connection failed.
     Returns:
-        dict: Возвращает ответ от сервера
+        dict: Response server
     """
     session = Session()
     # При различном теле запроса необходим различный тип.
@@ -58,6 +58,3 @@ def handle_request(
     else:
         logger.error(ConnectionError)
         raise ConnectionError
-
-
-# pprint(handle_request(method='GET', url='https://jservice.io/api/random', count=2))

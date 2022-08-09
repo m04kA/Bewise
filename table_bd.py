@@ -6,7 +6,17 @@ from sqlalchemy_utils import database_exists, create_database
 from loguru import logger
 
 
-def get_db_engine(user="admin", password="root", host="127.0.0.1", port=5433, db_name="bewise_db"):
+def get_db_engine(user: str = "admin", password: str = "root", host: str = "127.0.0.1", port: int = 5433,
+                  db_name: str = "bewise_db") -> sqlalchemy.engine.Engine:
+    """
+    Create engine to database.
+    :param user: Nickname of user.
+    :param password: Password of user.
+    :param host: Host of database.
+    :param port: Port of database.
+    :param db_name: Name of database.
+    :return: Engine to database.
+    """
     logger.debug(
         f"Create url to database:\nUser = {user};\nPassword = {password};\nHost = {host};\nPort = {port};\n"
         f"DB name = {db_name};")
@@ -25,7 +35,7 @@ def get_db_engine(user="admin", password="root", host="127.0.0.1", port=5433, db
     return engine
 
 
-def get_session_db(engine=None):
+def get_session_db(engine: sqlalchemy.engine.Engine = None) -> sqlalchemy.orm.session.Session:
     logger.debug(f"Start creating session to database.")
     if engine is None:
         logger.info(f"Engine is None. Get new engine to DB.")
@@ -42,6 +52,13 @@ Base = declarative_base()
 
 
 class Questions(Base):
+    """
+    Table with questions in Database.
+    id - id of question.
+    question - question for user.
+    answer - answer for question.
+    created_at - date of creation.
+    """
     __tablename__ = "questions"
     id = Column(Integer, primary_key=True)
     question = Column(String(500), nullable=False)
@@ -60,3 +77,5 @@ class Questions(Base):
 
 logger.debug(f"Create table {Questions.__tablename__}.")
 Base.metadata.create_all(engine)
+
+

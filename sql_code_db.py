@@ -1,5 +1,3 @@
-from typing import Union
-
 import sqlalchemy
 from loguru import logger
 from table_bd import Questions, get_session_db
@@ -8,7 +6,12 @@ from request_to_api import handle_request
 session = get_session_db()
 
 
-def preparing_data(data):
+def preparing_data(data: list = None) -> dict or list:
+    """
+    Preparing data for creating a question or questions.
+    :param data: - list of dicts with data for creating a question or questions.
+    :return: - ready to use data for creating a question or questions.
+    """
     logger.debug(f"Preparing data for DB;\nData = {data}")
     if len(data) > 1:
         for ind in range(len(data)):
@@ -36,6 +39,11 @@ def preparing_data(data):
 
 
 def check_keys(data: dict) -> dict:
+    """
+    Check keys in data.
+    :param data: - dict with data from server.
+    :return: - dict with data ready to use.
+    """
     logger.debug(f"Creating a selection of keys.\nData = {data}")
     my_data = {
         "id": "",
@@ -52,7 +60,12 @@ def check_keys(data: dict) -> dict:
     return my_data
 
 
-def create_question(data: dict or list = None) -> tuple[dict, int]:
+def create_question(data: list = None) -> tuple[dict, int]:
+    """
+    Create a question or questions to database.
+    :param data: - response from server with data.
+    :return: - answer from our server and code.
+    """
     logger.debug(f"Creating a question.\nData = {data}")
     data = preparing_data(data)
     if data is {"Error": "Connection error"}:
@@ -78,7 +91,12 @@ def create_question(data: dict or list = None) -> tuple[dict, int]:
     return {"Success": "Question created"}, 201
 
 
-def delete_question(id=None):
+def delete_question(id: int = None) -> tuple[dict, int]:
+    """
+    Delete question from database.
+    :param id: - id of question.
+    :return: - answer from our server and code.
+    """
     logger.info(f"Start deleting question with id {id}.")
     if id is None:
         logger.error(f"Bad request.\nData = {id}")
@@ -92,13 +110,22 @@ def delete_question(id=None):
     return {"Success": "Question deleted"}, 204
 
 
-def get_all_questions():
+def get_all_questions() -> tuple[list[dict], int]:
+    """
+    Get all questions from database.
+    :return: - list questions(JSON) and code.
+    """
     logger.info(f"Start getting all questions.")
     answer = session.query(Questions).all()
     return [serializer(item) for item in answer], 200
 
 
-def get_one_question(id=None):
+def get_one_question(id: int = None) -> tuple[dict, int]:
+    """
+    Get one question from database.
+    :param id: - id of question.
+    :return: - question(JSON) and code.
+    """
     logger.info(f"Start getting question with id {id}.")
     if id is None:
         logger.error(f"Bad request.\nID is None.")
@@ -110,7 +137,12 @@ def get_one_question(id=None):
     return serializer(answer), 200
 
 
-def serializer(question):
+def serializer(question: Questions) -> dict:
+    """
+    Serialize question from database.
+    :param question: - question from database.
+    :return: - question(JSON)
+    """
     logger.info(f"Serializing question.\nData = {question}")
     return {
         "id": question.id,
@@ -118,7 +150,6 @@ def serializer(question):
         "answer": question.answer,
         "created_at": question.created_at
     }
-
 
 # print(get_one_question(id=85598))
 
