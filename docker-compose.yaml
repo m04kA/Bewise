@@ -1,0 +1,24 @@
+version: '3'
+services:
+
+#  flask_app:
+#    build: .
+#    container_name: flask_app
+#    ports:
+#      - '6000:6000'
+#    depends_on:
+#      - db_postgres
+
+
+  db_postgres:
+    image: postgres:13.7-alpine3.16
+    container_name: db_postgres
+    ports:
+        - "5433:5432"
+    volumes:
+        - ./db_postgres:/var/lib/postgresql/data
+
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=bewise_db

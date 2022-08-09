@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+templates
+static
+db_postgres
+.idea
