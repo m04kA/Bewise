@@ -10,7 +10,7 @@ def handle_request(
         url: str,
         json: dict = None,
         data: str = None,
-        **kwargs) -> dict:
+        **kwargs) -> dict or list:
     """Request to server
     Args:
         method (str): Method of request

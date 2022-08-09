@@ -150,27 +150,3 @@ def serializer(question: Questions) -> dict:
         "answer": question.answer,
         "created_at": question.created_at
     }
-
-# print(get_one_question(id=85598))
-
-# test_data = handle_request(method='GET', url='https://jservice.io/api/random', count=1)
-
-# print(create_question(test_data))
-
-# print(session.query(Questions).all())
-
-# print(delete_question(1))
-
-# print(session.query(Questions).all())
-
-# session.close()
-
-# my_data = {
-#     "id": "",
-#     "question": "",
-#     "answer": "",
-#     "created_at": ""
-# }
-# question = Questions(**my_data)
-# session.add(question)
-# session.commit()
