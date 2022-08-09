@@ -131,4 +131,4 @@ templates
 static
 db_postgres
 .idea
-logs
+app/logs

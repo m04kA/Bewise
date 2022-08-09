@@ -90,5 +90,5 @@ api.add_resource(Main, "/api/questions", "/api/questions/<int:number>")
 api.init_app(app)
 
 if __name__ == "__main__":
-    logger.info("Start server.\nUrl = http://localhost:5000;\nDebug = True;")
-    app.run(host="127.0.0.1", port=6000, debug=True)
+    logger.info("Start server.\nUrl = http://localhost:5000;\nDebug = False;")
+    app.run(host="127.0.0.1", port=5000, debug=False)

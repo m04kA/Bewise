@@ -4,10 +4,11 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import database_exists, create_database
 from loguru import logger
+from configs import *
 
 
-def get_db_engine(user: str = "admin", password: str = "root", host: str = "127.0.0.1", port: int = 5433,
-                  db_name: str = "bewise_db") -> sqlalchemy.engine.Engine:
+def get_db_engine(user: str = USER, password: str = PASSWORD, host: str = HOST, port: int = PORT,
+                  db_name: str = DB_NAME) -> sqlalchemy.engine.Engine:
     """
     Create engine to database.
     :param user: Nickname of user.

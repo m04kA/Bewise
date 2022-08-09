@@ -1,13 +1,24 @@
 version: '3'
 services:
 
-#  flask_app:
-#    build: .
-#    container_name: flask_app
-#    ports:
-#      - '6000:6000'
-#    depends_on:
-#      - db_postgres
+  flask_app:
+    build: ./app
+    container_name: flask_app
+    entrypoint:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=bewise_db
+      - DATABASE_PORT=5433
+      - PYTHONUNBUFFERED=True # Убрать при релизе
+    depends_on:
+      - db_postgres
+    restart: on-failure
+    volumes:
+      - ./app:/app
+    ports:
+      - '5000:5000'
+    command:
+      - python app.py
 
 
   db_postgres:
