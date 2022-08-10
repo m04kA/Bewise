@@ -4,6 +4,7 @@ This serwise work with web-api: https://jservice.io/api/random
 
 If you want understand how it works, use this link after start: http://127.0.0.1:5000/info
 
+You must have docker installed.
 For start server use this command:
 
 ```docker-compose up --build```
