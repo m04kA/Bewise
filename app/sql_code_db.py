@@ -2,6 +2,7 @@ import sqlalchemy
 from loguru import logger
 from table_bd import Questions, get_session_db
 from request_to_api import handle_request
+import datetime
 
 session = get_session_db()
 
@@ -150,3 +151,21 @@ def serializer(question: Questions) -> dict:
         "answer": question.answer,
         "created_at": question.created_at
     }
+
+
+def create_test_data() -> int:
+    """
+    Func for creating test data for show all functional.
+    :return: - id test data in DB.
+    """
+    data = {
+        "id": 0,
+        "question": "Test question",
+        "answer": "Test answer",
+        "created_at": datetime.datetime.now()
+    }
+    if session.query(Questions).get(0) is None:
+        question = Questions(**data)
+        session.add(question)
+        session.commit()
+    return data["id"]

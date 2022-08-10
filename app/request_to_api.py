@@ -10,7 +10,7 @@ def handle_request(
         url: str,
         json: dict = None,
         data: str = None,
-        **kwargs) -> dict or list:
+        **kwargs) -> dict or list or int:
     """Request to server
     Args:
         method (str): Method of request
@@ -51,7 +51,9 @@ def handle_request(
                  f"json - {json}\n"
                  f"data - {data}")
     # Проверка на валидность ответа.
-    if response.status_code == 200:
+    if response.status_code//100 == 2:
+        if method == 'DELETE':
+            return 1
         response_dict = JSON.loads(response.text)
         logger.info(f'Successful - {url}')
         return response_dict
